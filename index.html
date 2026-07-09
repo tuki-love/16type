@@ -468,7 +468,16 @@ function pick(qi, oi, el){
   document.querySelectorAll(`.opt[data-q="${qi}"]`).forEach(b=>b.classList.remove("sel"));
   el.classList.add("sel");
   $("hint").textContent = "";
+  // 次の未回答質問へ自動スクロール(全部回答済みならボタンへ)
+  const next = answers[page].findIndex((a, i) => a === null && i > qi);
+  const target = next !== -1
+    ? document.querySelectorAll("#q-area .q")[next]
+    : (answers[page].every(a => a !== null) ? $("next-btn") : null);
+  if(target){
+    setTimeout(() => target.scrollIntoView({behavior: prefersReduced ? "auto" : "smooth", block: "center"}), 150);
+  }
 }
+const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 function nextPage(){
   const missing = answers[page].findIndex(a=>a===null);
   if(missing !== -1){
