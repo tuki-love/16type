@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>この関係、大丈夫? ——年上の彼との現在地診断</title>
+<meta name="description" content="年上の彼と付き合うあなたの「今」を16タイプで診断。全16問・2分。">
+<!-- OGP: 画像URLは公開後に差し替え -->
+<meta property="og:title" content="この関係、大丈夫? ——年上の彼との現在地診断">
+<meta property="og:description" content="年上の彼と付き合うあなたの「今」を16タイプで診断。全16問・2分。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tuki-love.github.io/16type/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --card:#FFFCF7;
+  --ink:#3A3450;
+  --sub:#7A7390;
+  --accent:#8E7CC3;
+  --accent-deep:#6C5CA8;
+  --line:#E6DFEF;
+  --warn-bg:#FFF4EC;
+  --warn-line:#F2C9A8;
+  --radius:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{
+  font-family:'Zen Maru Gothic',system-ui,sans-serif;
+  color:var(--ink);
+  min-height:100dvh;
+  background:linear-gradient(180deg,#FBD9BF 0%,#D9C4E6 100%);
+  transition:background 1.2s ease;
+  display:flex;justify-content:center;
+  padding:20px 14px 48px;
+}
+body.sky-0{background:linear-gradient(180deg,#FBD9BF 0%,#D9C4E6 100%)}   /* 夕暮れ: intro */
+body.sky-1{background:linear-gradient(180deg,#F3C6B4 0%,#B9A3D8 100%)}   /* 夕方 */
+body.sky-2{background:linear-gradient(180deg,#C7A6D3 0%,#8378B8 100%)}   /* 宵 */
+body.sky-3{background:linear-gradient(180deg,#7A72B0 0%,#454273 100%)}   /* 夜 */
+body.sky-4{background:linear-gradient(180deg,#413E6E 0%,#211F3E 100%)}   /* 深夜 */
+body.sky-r{background:linear-gradient(180deg,#5C548F 0%,#F0B48F 100%)}   /* 夜明け: result */
+
+.wrap{width:100%;max-width:430px}
+.stars{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
+body.sky-3 .stars,body.sky-4 .stars{opacity:1}
+.stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFF6D9}
+
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:26px 22px 30px;
+  box-shadow:0 8px 30px rgba(40,32,80,.18);
+}
+.view{display:none}
+.view.on{display:block;animation:rise .45s ease}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view.on{animation:none}body{transition:none}}
+
+/* ---- intro ---- */
+.moon-mark{width:64px;height:64px;margin:4px auto 14px;display:block}
+.eyebrow{text-align:center;font-size:.8rem;letter-spacing:.18em;color:var(--sub);margin-bottom:8px}
+h1{font-size:1.55rem;line-height:1.45;text-align:center;font-weight:700}
+h1 .sub{display:block;font-size:.85rem;color:var(--sub);font-weight:500;margin-top:8px;letter-spacing:.05em}
+.lead{margin:18px 0 6px;font-size:.95rem;line-height:1.9;color:var(--ink)}
+.meta{text-align:center;color:var(--sub);font-size:.8rem;margin:14px 0 4px}
+
+/* ---- buttons ---- */
+.btn{
+  display:block;width:100%;border:none;cursor:pointer;
+  font-family:inherit;font-weight:700;font-size:1.02rem;
+  padding:15px 16px;border-radius:999px;margin-top:18px;
+  background:var(--accent);color:#fff;
+  transition:transform .12s ease,background .2s;
+}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--accent-deep);border:2px solid var(--accent);padding:12px 16px;font-size:.92rem}
+.tiny-link{display:block;text-align:center;margin-top:16px;font-size:.8rem;color:var(--sub);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit}
+
+/* ---- quiz ---- */
+.progress{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.p-label{font-size:.82rem;color:var(--sub);font-weight:500}
+.moons{display:flex;gap:8px}
+.moons svg{width:18px;height:18px}
+.q{margin-top:20px}
+.q h2{font-size:1.02rem;line-height:1.6;margin-bottom:12px}
+.q h2 .no{color:var(--accent-deep);margin-right:.4em;font-size:.85rem}
+.opts{display:grid;gap:9px}
+.opt{
+  border:2px solid var(--line);border-radius:14px;background:#fff;
+  padding:12px 14px;font-family:inherit;font-size:.9rem;line-height:1.55;
+  text-align:left;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s;
+}
+.opt:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.opt.sel{border-color:var(--accent);background:#F4EFFB}
+.hint{min-height:1.2em;text-align:center;font-size:.8rem;color:#C4646B;margin-top:12px}
+
+/* ---- result ---- */
+.r-eyebrow{text-align:center;font-size:.78rem;letter-spacing:.15em;color:var(--sub)}
+.r-name{font-size:1.5rem;line-height:1.5;text-align:center;font-weight:700;margin:8px 0 4px;color:var(--accent-deep)}
+.r-code{text-align:center;font-size:.75rem;color:var(--sub);letter-spacing:.2em;margin-bottom:6px}
+.illust-slot{
+  width:150px;height:150px;margin:14px auto;border-radius:50%;
+  background:#F4EFFB;display:flex;align-items:center;justify-content:center;
+}
+.illust-slot svg{width:96px;height:96px}
+.r-sec{margin-top:20px}
+.axes{margin:20px 0 4px;display:grid;gap:14px}
+.axis .ax-labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--sub);margin-bottom:5px}
+.axis .ax-labels b{color:var(--accent-deep);font-weight:700}
+.axis .bar{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.axis .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-deep));transition:width .8s ease}
+.axis .ax-pct{text-align:center;font-size:.72rem;color:var(--sub);margin-top:4px}
+.r-sec h3{font-size:.92rem;color:var(--accent-deep);margin-bottom:6px}
+.r-sec p{font-size:.92rem;line-height:1.9}
+.safety{border:2px solid var(--warn-line);background:var(--warn-bg);border-radius:14px;padding:16px;margin:18px 0}
+.safety h3{font-size:.95rem;margin-bottom:8px;color:#B0642F}
+.safety p{font-size:.88rem;line-height:1.85}
+.share-x{background:#1D1B33}
+.btn.line{background:#06C755;color:#fff;border:none}
+.divider{border:none;border-top:1px dashed var(--line);margin:26px 0 6px}
+.foot-note{font-size:.75rem;color:var(--sub);text-align:center;margin-top:18px;line-height:1.7}
+
+/* ---- male page ---- */
+.male h2{font-size:1.2rem;line-height:1.6;text-align:center;margin-bottom:14px}
+.male p{font-size:.93rem;line-height:1.95;margin-top:10px}
+</style>
+</head>
+<body class="sky-0">
+<div class="stars" aria-hidden="true"></div>
+<div class="wrap">
+
+<!-- ============ INTRO ============ -->
+<section class="view on card" id="v-intro">
+  <svg class="moon-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+    <path d="M42 8c-9 3-16 12-16 23s7 20 16 23C31 57 18 47 18 32S31 7 42 8z" stroke="#8E7CC3" stroke-width="2.4" stroke-linejoin="round" fill="#F4EFFB"/>
+    <circle cx="47" cy="16" r="1.6" fill="#8E7CC3"/><circle cx="52" cy="26" r="1.2" fill="#C7B6E8"/>
+  </svg>
+  <p class="eyebrow">全16問 / 約2分</p>
+  <h1>この関係、大丈夫?<span class="sub">——年上の彼との現在地診断</span></h1>
+  <p class="lead">年上の彼と付き合っているあなたへ。<br>
+  ふたりの関係の「今」を、16タイプで言い当てます。<br>
+  深呼吸して、直感で答えてみて。</p>
+  <button class="btn" onclick="startQuiz()">診断をはじめる</button>
+  <button class="tiny-link" onclick="showMale()">年上彼女・年下彼女と付き合う男性のあなたへ →</button>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view card" id="v-quiz">
+  <div class="progress">
+    <span class="p-label" id="p-label"></span>
+    <div class="moons" id="moons" aria-hidden="true"></div>
+  </div>
+  <div id="q-area"></div>
+  <p class="hint" id="hint" role="alert"></p>
+  <button class="btn" id="next-btn" onclick="nextPage()">次へ</button>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section class="view card" id="v-result">
+  <div id="safety-top"></div>
+  <p class="r-eyebrow">あなたの現在地は</p>
+  <h2 class="r-name" id="r-name"></h2>
+  <p class="r-code" id="r-code"></p>
+  <div class="illust-slot" id="illust">
+    <!-- フェーズ2: タイプ別ゆる線画イラストに差し替え -->
+    <svg viewBox="0 0 96 96" fill="none" aria-hidden="true">
+      <circle cx="48" cy="48" r="30" stroke="#8E7CC3" stroke-width="2.4" fill="#fff"/>
+      <path d="M38 46c2 2 4 2 6 0M52 46c2 2 4 2 6 0" stroke="#8E7CC3" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M42 58c4 3 8 3 12 0" stroke="#8E7CC3" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="axes" id="axes"></div>
+  <div id="r-body"></div>
+  <div id="safety-mid"></div>
+  <button class="btn share-x" onclick="shareX()">結果をXでシェアする</button>
+  <a class="btn line" id="line-btn" href="#" target="_blank" rel="noopener">LINEでタイプ別の詳しい解説を受け取る</a>
+  <p class="foot-note" id="line-hint" style="margin-top:8px"></p>
+  <a class="btn ghost" id="note-btn" href="#" target="_blank" rel="noopener">「年上の彼と付き合う私」のリアルな体験談を読む</a>
+  <hr class="divider">
+  <button class="tiny-link" onclick="showMale()">彼にもやってもらう? 男性版はこちら →</button>
+  <button class="tiny-link" onclick="restart()">もう一回診断する</button>
+  <p class="foot-note">※この診断はエンタメを目的としたセルフチェックです。<br>※男性の方は「男性版はこちら」からどうぞ。</p>
+</section>
+
+<!-- ============ MALE LANDING ============ -->
+<section class="view card male" id="v-male">
+  <h2>年上彼女・年下彼女と<br>付き合っている男性のあなたへ</h2>
+  <p>男性版の診断は、いま準備中です。</p>
+  <p>その代わり、と言ってはなんですが——<br>
+  年下の彼女が「実際に何を考えていたか」を、当事者に直接聞いて全部書いた記事があります。</p>
+  <p>将来のこと、周りの目のこと、あなたに言えなかった不安のこと。<br>
+  彼女側の本音は、たぶんあなたが想像しているのと、けっこう違います。</p>
+  <a class="btn" id="male-note-btn" href="#" target="_blank" rel="noopener">「年下彼女の本音」を読む</a>
+  <a class="btn line" id="male-line-btn" href="#" target="_blank" rel="noopener">LINEで男性版診断の公開通知を受け取る</a>
+  <button class="tiny-link" onclick="backToIntro()">← 診断トップへ戻る</button>
+</section>
+
+</div>
+
+<script>
+/* ================= 設定(公開前にここだけ差し替え) ================= */
+const CONFIG = {
+  siteUrl: "https://tuki-love.github.io/16type/", // 公開URL
+  lineUrl: "https://lin.ee/ZQIfKjb",       // LINE公式アカウント 友だち追加URL
+  noteUrlF: "#",      // 女性向けnoteのURL
+  noteUrlM: "#",      // 男性向けnoteのURL
+  hashtag: "この関係大丈夫診断"
+};
+
+/* ================= 設問データ =================
+axis: W/A(安心) F/N(不安) G/K(自分) S/Y(状態) w:配点 f:安全フラグ */
+const PAGES = [
+ {label:"ふだんの2人", qs:[
+  {t:"ふとした瞬間、頭をよぎるのはどれに近い?", o:[
+    ["「この人と5年後、私どうなってるんだろう」","F",2],
+    ["「今、本当は私のことどう思ってるんだろう」","N",2],
+    ["「堂々と周りに紹介できる日って来るのかな」","F",1],
+    ["「最近ちょっと冷たい…?気のせいかな」","N",1]]},
+  {t:"彼にされて一番うれしいのは?", o:[
+    ["「好きだよ」をちゃんと言葉にしてくれる","W",2],
+    ["疲れてる日に、何も聞かずに会いに来てくれる","A",2],
+    ["LINEの返事がいつも丁寧","W",1],
+    ["私の好きなものを覚えてて、さりげなく用意してくれる","A",1]]},
+  {t:"デートの行き先、だいたいどう決まる?", o:[
+    ["彼の提案に乗ることが多い。それで満足","G",1],
+    ["彼に合わせつつ、行きたい場所を飲み込むことがある","G",2,true],
+    ["半々。普通に希望を言える","K",1],
+    ["私が決めることも多い","K",2]]},
+  {t:"最近の2人の空気を天気でいうと?", o:[
+    ["快晴。安心してる","S",2],
+    ["晴れときどき曇り","S",1],
+    ["曇り。なんとなく胸がざわつく","Y",1],
+    ["読めない。日によって全然違う","Y",2]]}
+ ]},
+ {label:"すこし深いところ", qs:[
+  {t:"ケンカや気まずさのあと、安心できるのは?", o:[
+    ["ちゃんと言葉で謝ってくれたとき","W",2],
+    ["何事もなかったようにいつも通り優しいとき","A",1],
+    ["「話そう」と時間を取ってくれたとき","W",1],
+    ["次に会ったとき、いつも以上に大事にしてくれたとき","A",2]]},
+  {t:"彼との差を一番感じるのはどんなとき?", o:[
+    ["結婚や将来の話になったとき","F",2],
+    ["話題や感覚が微妙にズレたとき","N",1],
+    ["周りの目や、親のことを考えたとき","F",1],
+    ["彼が「大人の余裕」でこっちの本気を流したとき","N",2]]},
+  {t:"彼の前での自分、正直に言うと?", o:[
+    ["ちょっと背伸びしてる。子どもっぽく見られたくない","G",1],
+    ["わりと素の自分でいられてる","K",1],
+    ["嫌われたくなくて、言いたいことを飲むことがある","G",2,true],
+    ["甘えるところは甘えて、言うことは言えてる","K",2]]},
+  {t:"彼からのLINE、しばらく来ないとどうなる?", o:[
+    ["気にならない。そういう日もある","S",2],
+    ["ちょっと気になるけど、自分の時間を楽しめる","S",1],
+    ["何度もスマホを見ちゃう","Y",1],
+    ["「私、何かしたかな」と自分を疑い始める","Y",2,true]]}
+ ]},
+ {label:"眠れない夜のこと", qs:[
+  {t:"眠れない夜、考えちゃうのは?", o:[
+    ["このまま付き合って、私の20代どうなるんだろう","F",2],
+    ["さっきの彼のあの言葉、どういう意味だったんだろう","N",1],
+    ["彼の人生設計に、私って入ってるのかな","F",1],
+    ["私ばっかりが好きなんじゃないかな","N",2]]},
+  {t:"「大事にされてるな」と感じる瞬間は?", o:[
+    ["気持ちをきちんと言葉で伝えてくれるとき","W",2],
+    ["忙しくても、時間を作ってくれるとき","A",1],
+    ["前に話したことを覚えてて、あとから触れてくれるとき","W",1],
+    ["体調や生活のことを気にかけて動いてくれるとき","A",2]]},
+  {t:"彼と意見が違ったときは?", o:[
+    ["だいたい彼が正しい気がして、合わせる","G",2],
+    ["一応言うけど、押し切られがち","G",1],
+    ["納得いくまで話したい","K",1],
+    ["意見が違うままでも大丈夫でいられる","K",2]]},
+  {t:"正直、この診断を開いた理由に近いのは?", o:[
+    ["なんとなく面白そうだったから","S",2],
+    ["2人のことをもっと知りたくて","S",1],
+    ["最近ちょっと、不安なことがあって","Y",1],
+    ["誰にも言えないモヤモヤがあって","Y",2,true]]}
+ ]},
+ {label:"これからのこと", qs:[
+  {t:"彼の愛情を疑いそうになったとき、いちばん効く薬は?", o:[
+    ["「不安にさせてごめん」のひと言","W",2],
+    ["いつも通りの態度で隣にいてくれること","A",1],
+    ["気持ちを言葉で確認し合う時間","W",1],
+    ["予定をやりくりして会いに来てくれること","A",2]]},
+  {t:"友達に彼の話をするとき、引っかかるのは?", o:[
+    ["「結婚とかどうするの?」と聞かれること","F",2],
+    ["「それ、本当に大事にされてる?」と聞かれること","N",2],
+    ["彼との歳の差に、一瞬微妙な顔をされること","F",1],
+    ["のろけながら、実感が薄い自分に気づくこと","N",1]]},
+  {t:"彼に本音、どれくらい言えてる?", o:[
+    ["ほぼ全部言えてる","K",2],
+    ["8割くらい。重い話はタイミングを選んでる","K",1],
+    ["半分くらい。困らせたくない","G",1],
+    ["あんまり言えてない。嫌われたくないから","G",2,true]]},
+  {t:"1年後の2人を想像すると?", o:[
+    ["普通に一緒にいる気がする","S",1],
+    ["想像するとちょっと楽しみ","S",2],
+    ["正直、想像がつかない","Y",1],
+    ["考えると少し苦しくなる","Y",2,true]]}
+ ]}
+];
+
+/* ================= 16タイプ結果 ================= */
+const R = {
+"WFG-S":{n:"言葉で未来を編むロマンチスト",
+ p:["「好きだよ」の一言で全回復するタイプ。彼に言われた言葉、ちゃんと覚えてて、ふとした時に思い出しては一人でにやけてる。将来の話も、夢見がちとかじゃなくて普通に真剣。むしろこの恋のこと一番ちゃんと考えてるの、あなたのほうだったりする。",
+ "言葉を大事にするから、すれ違いを放置しない。小さい「ありがとう」をちゃんと言えるタイプなので、年の差があっても土台が育ちやすい関係です。",
+ "彼が言葉少なめタイプだと「言ってくれない=考えてない」に変換しがち。年上世代は気持ちを行動で出す人も多いので、翻訳ミスにだけ注意。",
+ "「将来どう思ってる?」じゃなくて「私はこう考えてる」から話してみて。言葉が欲しい時は、先に言葉をあげた人が強い。"],
+ s:"【言葉で未来を編むロマンチスト】だった。この恋、一番真剣なの私のほうらしい。あなたは?"},
+"WFG-Y":{n:"約束の言葉を待ちすぎてる人",
+ p:["彼の口から将来の話が出るのを、ずっと待ってる人。「その話、いつしてくれるんだろう」って思いながら、自分からは切り出せない。彼の機嫌がいい日、ふたりでいい感じの日ほど「今日こそ言ってくれるかな」って期待して、何もないまま帰り道でちょっとしぼむ。それ、繰り返してない?",
+ "待てるのは、彼のペースを尊重できてるってこと。急かして関係を壊すタイプじゃないのは、間違いなく長所です。",
+ "待つのと我慢するのは別物。「言ってくれない不安」は、待ってる限り勝手には消えない。彼はそもそも、あなたが待ってることに気づいてない可能性が普通にあります。",
+ "重い話にしなくていいので、「私、けっこう先のこと考えるタイプなんだよね」って一言だけ置いてみて。ボールをそっと相手のコートに移すだけで、待つ夜は減ります。"],
+ s:"【約束の言葉を待ちすぎてる人】だった…帰り道のしぼむ感じ、なんでわかるの。"},
+"WFK-S":{n:"未来を一緒に設計する対等プランナー",
+ p:["年の差があっても、話し合いは対等でいたい人。将来のことも「彼に決めてもらう」じゃなくて「ふたりで決める」がデフォルト。言いたいことはちゃんと言葉にするし、彼の言葉もちゃんと聞く。正直、恋愛の進め方がうまい。",
+ "年の差カップルが一番こじれやすい「結婚・将来のズレ」を、話し合いで潰していけるタイプ。このスキルがあるだけで、続く確率はかなり上がります。",
+ "計画的すぎて、彼の「まだ決めたくない」を不誠実と受け取っちゃう時がある。大人にも迷う時期はあるので、答えを急がせない余白も残しておくと強い。",
+ "次の「決める話」の前に、決めなくていい未来の話(住みたい街とか、行きたい国とか)をしてみて。設計図の前に、落書きの時間があると計画はうまくいく。"],
+ s:"【未来を一緒に設計する対等プランナー】。恋愛の進め方うまいって言われた、そうだといいけど。"},
+"WFK-Y":{n:"答え合わせを急ぎたくなってる人",
+ p:["本当は対等に話せる人なのに、最近ちょっと焦ってる。「この関係って結局どこに向かってるの?」の答えを早く確定させたくて、彼の言葉の端々から結論を拾おうとしてる。友達の結婚報告とか、周りの動きを見るたびに、心のどこかがザワッとするやつ。",
+ "焦りが出るのは、自分の人生を真剣に考えてる証拠。流されて何年も経っちゃうタイプじゃないのは、間違いなくあなたの強さです。",
+ "焦って出した「白黒つけて」は、だいたい欲しかった答えを連れてこない。年上の彼は年上なりに、あなたの年齢や人生を背負う重さを考えてて、慎重になってることもあります。",
+ "「いつまでに答えが欲しいか」を、彼にじゃなくてまず自分に聞いてみて。自分の期限が決まると、話し合いは焦りじゃなくて交渉になります。"],
+ s:"【答え合わせを急ぎたくなってる人】だった。友達の結婚報告でザワつくの、私だけじゃなかった。"},
+"WNG-S":{n:"ひと言で満たされる素直な人",
+ p:["彼の「かわいいね」「ありがとう」を素直に受け取って、素直に喜べる人。ひねくれ解釈をしないから、彼からしても一緒にいてすごく楽なタイプ。愛情表現はシンプルに言葉でほしい派で、それを恥ずかしがらずに出せてるのが偉い。",
+ "素直さは年の差恋愛で最強の武器。彼が出した気持ちがちゃんと届く関係は、彼側の「大事にしよう」も引き出します。いいループに入ってる。",
+ "素直なぶん、彼の言葉が減った時期にダメージを受けやすい。仕事が忙しいだけの沈黙を「冷めた?」と読まないように。言葉の量と愛情の量は、いつも比例するわけじゃない。",
+ "彼の言葉で嬉しかったやつ、1個だけ「あれ嬉しかった」って伝え返してみて。言葉をくれる人は、言葉が返ってくるともっとくれるようになります。"],
+ s:"【ひと言で満たされる素直な人】でした。素直って言われて悪い気はしない。"},
+"WNG-Y":{n:"既読の温度を測りすぎる繊細さん",
+ p:["返信の速さ、文末の「。」、スタンプの選び方。彼のLINEの温度、正直読みすぎてる自覚ある人。既読ついてから返事来るまでの間、他のこと何も手につかなくなるタイプ。それだけ彼のこと考えてるってことなんだけど、ちょっと疲れてきてるのも、ほんとは自分が一番わかってるはず。",
+ "察する力は間違いなく武器。彼の「なんか今日元気ないな」に一番先に気づけるのはあなた。いま敏感になってるのは、あなたがメンヘラだからとかじゃなくて、単純にこの恋にちゃんと本気だから。",
+ "LINEの中に安心を探しても、どんな返信もらっても数時間で不安が戻ってくる。これ、彼の返信の問題じゃなくて「画面の中に答えを探してる」ことの限界。答えは会って話すほうにしかない。",
+ "今夜だけスマホ裏返して、代わりに「次会ったとき聞きたいこと」を1個だけメモっといて。不安って、検索するより質問したほうが早く消えるので。"],
+ s:"【既読の温度を測りすぎる繊細さん】だった…当たりすぎて無理。あなたは?"},
+"WNK-S":{n:"「気持ちは言葉で」派の正直者",
+ p:["思ってることは言うし、聞きたいことは聞く。年上相手でも変に遠慮しないのがあなたのスタイル。「今の言い方ちょっと嫌だった」が言えるタイプで、そのぶん溜め込みからの爆発がない。彼からしたら、たぶん想像の倍、付き合いやすい人。",
+ "年の差恋愛の地雷である「言えない我慢の蓄積」が起きにくい。小さい不満をその場で出せる関係は、地味だけど一番壊れにくいです。",
+ "正直さが強く出ると、彼の「大人の流し方」を不誠実に感じてイラッとすることがある。向こうは喧嘩を避けてるだけの場合も多いので、「流さないで聞いて」って先に言っちゃうのが早い。",
+ "正直さの使い道を1個増やして、不満だけじゃなく「今日のあれ好きだった」も同じ率直さで言ってみて。正直者の褒め言葉は、効きが違うので。"],
+ s:"【「気持ちは言葉で」派の正直者】。溜め込まないタイプって出た、確かに。"},
+"WNK-Y":{n:"言葉の裏を読みたくなってる現実派",
+ p:["普段は彼の言葉を素直に受け取れるのに、最近「それ本音?」って一回疑ってから受け取るクセがついてる人。彼の「大丈夫」「気にしてないよ」を聞いても、なんかスッキリしない。前は気にならなかったのに、って自分でも思ってるはず。",
+ "違和感を見て見ぬふりできない性格は、関係の異変に一番早く気づける性格でもある。あなたのセンサーが鳴ってるなら、何かしら話すべきことが本当にあるのかもしれない。",
+ "裏読みモードのまま会話すると、彼のどんな言葉も証拠品みたいに扱っちゃって、彼側が「何言っても疑われる」で口数が減る悪循環に入りやすい。疑いは、ぶつけるんじゃなくて開示するほうがうまくいく。",
+ "「最近、勝手に不安になっちゃう時があって」って、疑いじゃなくて状態のほうを共有してみて。原因の追及より状態の共有のほうが、彼は動きやすいので。"],
+ s:"【言葉の裏を読みたくなってる現実派】…「それ本音?」って思うの、クセになってた。"},
+"AFG-S":{n:"背中を見て安心する見守り型",
+ p:["彼の言葉より、行動と背中を見てる人。仕事してる姿とか、店員さんへの態度とか、そういうところで「この人でよかった」を確認してるタイプ。ベタベタの愛情表現がなくても、ちゃんと大事にされてる実感を行動から受け取れてる。大人な恋愛ができてます。",
+ "年上の彼の一番いい部分(積み重ねてきたもの、余裕、誠実さ)を、ちゃんと見て評価できてる。彼からすると「わかってくれてる感」が強くて、居心地がいいはず。",
+ "見守り型は、自分の要望を出すのが後回しになりがち。「彼はよくやってくれてるし」で自分のしてほしいことを引っ込め続けると、ある日突然しんどくなるので、リクエストはちゃんと出していい。",
+ "彼の行動で好きなところ、1個だけ本人に言ってみて。「そういうとこ見てるんだ」って伝わると、彼の行動はもっと増えます。"],
+ s:"【背中を見て安心する見守り型】。大人な恋愛できてるって、初めて言われたかも。"},
+"AFG-Y":{n:"未来図が描けなくて立ち止まってる人",
+ p:["彼のことは信頼してる。今の関係にも大きな不満はない。なのに「で、この先どうなるんだろう」を考えると、急に画面が真っ暗になる感じがする人。年の差のこと、周りの目、自分の年齢。考えても答えが出ないから、考えるのを途中でやめる。それを何回も繰り返してる。",
+ "今の彼をちゃんと信頼できてるのは、関係の土台がちゃんとある証拠。あなたの不安は「彼への不信」じゃなくて「情報不足」から来てるだけの可能性が高いです。",
+ "一人で未来をシミュレーションしても、彼の考えという最重要データが欠けてるので、永遠に結論が出ない。これは考える力の問題じゃなくて、材料の問題。",
+ "「私たちの5年後ってどうなってると思う?」って、重くなく、雑談のテンションで聞いてみて。彼の答えの中身より、答えようとしてくれるかどうかが、一番知りたかった情報だったりします。"],
+ s:"【未来図が描けなくて立ち止まってる人】。考えるのを途中でやめるの、当てられた。"},
+"AFK-S":{n:"行動で未来を確かめる堅実派",
+ p:["「結婚しようね」の言葉より、貯金とか生活とか、彼の行動に未来が入ってるかを見てる人。甘い言葉に流されないし、自分の人生設計もちゃんと持ってる。恋に落ちてても、ちゃんと地に足がついてる。年の差恋愛への世間のイメージを一番裏切ってるのは、たぶんあなたみたいな人。",
+ "現実を見る力があるので、年の差恋愛の実務的な課題(ライフプランのズレとか)に強い。感情論じゃなく相談ができる相手として、彼からの信頼も厚いはず。",
+ "堅実さが強く出ると、彼のふわっとした夢の話とか根拠のない「なんとかなるよ」を冷めた目で見ちゃうことがある。全部をジャッジしないで、乗っかるだけの会話も残しておくと関係は柔らかくなる。",
+ "たまには現実チェックをオフにして、「もし宝くじ当たったら」みたいな意味のない未来の話をしてみて。堅実派の余白は、彼にとってご褒美なので。"],
+ s:"【行動で未来を確かめる堅実派】。恋しててもちゃんと地に足ついてるらしい。でしょうね。"},
+"AFK-Y":{n:"確かな証拠を集めたくなってる人",
+ p:["最近、彼の行動を無意識にチェックしてる人。予定の話をした時の反応、お金の使い方、私の話を覚えてるか。「この関係が本物かどうか」の証拠を、日常の中から集めてる。集めるほど安心できるかと思いきや、微妙な証拠が出るたびに不安が増えてる気がしない?",
+ "観察眼と現実感覚は本物。あなたが「なんか引っかかる」と思うポイントは、実際に話し合う価値のあるポイントであることが多いです。感覚は信じていい。",
+ "証拠集めの限界は、どれだけ集めても「彼の気持ち」だけは物証が出ないこと。行動は嘘をつかないけど、行動の解釈は一人でやると不安な方に倒れがち。",
+ "集めた「引っかかりリスト」から1個だけ選んで、観察をやめて直接聞いてみて。証拠より自白のほうが早い、って探偵ものでもよく言うので。"],
+ s:"【確かな証拠を集めたくなってる人】だった。無意識にチェックしてるの、バレてた。"},
+"ANG-S":{n:"隣にいるだけで満ちる寄り添い型",
+ p:["何をするかより、誰といるか派。彼と一緒にコンビニ行くだけの時間が普通に幸せなタイプ。彼のペースに合わせるのも苦じゃなくて、むしろ心地いい。言葉が少ない日も、隣にいられればそれで結構満たされてる。",
+ "一緒にいて疲れない関係を作れるのは、実は特殊能力。年の差があると生活リズムも文化も違うのに、そこを心地よさに変換できてるのはあなたの柔らかさのおかげです。",
+ "合わせるのが自然すぎて、彼があなたの我慢に気づかないまま進むことがある。「合わせてる」と「委ねてる」の割合、たまに棚卸ししてみて。心地よさと自分の消失は、境目が静かなので。",
+ "次のデート、1個だけ「私これがしたい」を先に出してみて。寄り添い型のリクエストは希少なので、彼はたぶん喜んで動きます。"],
+ s:"【隣にいるだけで満ちる寄り添い型】。コンビニデートで幸せなの、わかられてた。"},
+"ANG-Y":{n:"合わせすぎて自分を見失いかけてる人",
+ p:["彼の好きなもの、彼の行きたい場所、彼の空いてる時間。気づいたら予定も趣味も彼仕様になってて、「あれ、私って何が好きだったんだっけ」って一瞬なる時がある人。彼に不満があるわけじゃない。ただ、彼のいない日の自分が、ちょっと空っぽに感じる時がある。",
+ "それだけ人に寄り添える力があるってこと。あなたの適応力と優しさ自体は何も悪くない。問題は量と方向だけで、性格を直す必要は全然ないです。",
+ "合わせ続けた関係は、彼から見ると「うまくいってる」ように見えるのが厄介なところ。あなたの中の違和感は、外からは見えない。だからこれは彼の鈍感さの問題である前に、出してないサインは届かないという物理の問題。",
+ "彼と関係ない予定(友達でも趣味でも一人時間でも)を、今週1個だけ入れてみて。自分の時間を持ってる人のほうが、実は関係も長持ちします。"],
+ s:"【合わせすぎて自分を見失いかけてる人】…彼のいない日の空っぽ感、言語化されてしまった。"},
+"ANK-S":{n:"今を等身大で楽しむマイペース恋人",
+ p:["年の差?まあ数字だよね、くらいのスタンスで、今の関係を普通に楽しめてる人。彼に合わせるところは合わせるけど、自分の生活も友達も趣味もちゃんとある。依存しない、束縛しない、でも好き。理想って言われるやつを、わりと自然体でやれてる。",
+ "精神的に自立した関係は、年の差恋愛の弱点(対等じゃなくなりがち問題)を最初からクリアしてる。彼にとってあなたは「守る対象」じゃなくて「一緒にいたい人」になってるはず。",
+ "マイペースが行きすぎると、彼の「もっと頼ってほしい」に気づかないことがある。年上って、頼られたい生き物でもあるので。自立と、たまの甘えの配合だけ意識すると無敵です。",
+ "普段自分で解決してることを、1個だけ彼に相談してみて。答えが欲しいんじゃなくて、頼るという名のプレゼントなので。"],
+ s:"【今を等身大で楽しむマイペース恋人】。理想って言われるやつ、自然体でやれてるらしい。"},
+"ANK-Y":{n:"温度差センサーが敏感になってる人",
+ p:["基本は自分のペースで恋愛できる人なのに、最近ふたりの「温度差」が気になり始めてる。私のほうが好きなんじゃないか、彼にとって私って何番目なんだろう、みたいな。普段そういうこと考えないタイプだからこそ、考え始めた自分に一番戸惑ってるのでは。",
+ "普段が自立型のあなたのセンサーが鳴ってるなら、それはノイズじゃなくて何かしらの変化を拾ってる可能性がある。自分の感覚を「気にしすぎ」で片付けないほうがいい局面かも。",
+ "自立型の人は不安を一人で処理しようとして、処理しきれない時に一気に距離を取る癖がある。急に冷たくなったあなたを見て彼が混乱する、っていうすれ違いが定番コースなので、そこだけ回避。",
+ "「最近ちょっと温度差感じる時がある」って、結論を求めずに事実だけ置いてみて。自立してる人の弱音は重くならないので、安心して出して大丈夫。"],
+ s:"【温度差センサーが敏感になってる人】。考え始めた自分に戸惑ってるの、そこまで当てる?"}
+};
+const SEC_TITLES = ["あなたはこんな人","この関係の強み","つまずきやすいポイント","今夜からできる小さな一歩"];
+// LINE自動返信の合言葉(タイプ別)
+const KW = {"WFG-S":"ロマンチスト","WFG-Y":"待ちすぎ","WFK-S":"プランナー","WFK-Y":"答え合わせ",
+"WNG-S":"素直な人","WNG-Y":"繊細さん","WNK-S":"正直者","WNK-Y":"現実派",
+"AFG-S":"見守り型","AFG-Y":"未来図","AFK-S":"堅実派","AFK-Y":"証拠集め",
+"ANG-S":"寄り添い型","ANG-Y":"合わせすぎ","ANK-S":"マイペース","ANK-Y":"温度差"};
+
+/* ================= 状態 ================= */
+let page = 0;
+let answers = Array.from({length:4},()=>[null,null,null,null]);
+let resultCode = "", resultShare = "";
+
+/* ================= 画面制御 ================= */
+const $ = id => document.getElementById(id);
+function show(id, sky){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("on"));
+  $(id).classList.add("on");
+  document.body.className = "sky-"+sky;
+  window.scrollTo({top:0});
+}
+function startQuiz(){ page = 0; renderPage(); show("v-quiz", 1); }
+function showMale(){
+  $("male-note-btn").href = CONFIG.noteUrlM;
+  $("male-line-btn").href = CONFIG.lineUrl;
+  show("v-male", 0);
+}
+function backToIntro(){ show("v-intro", 0); }
+function restart(){
+  answers = Array.from({length:4},()=>[null,null,null,null]);
+  show("v-intro", 0);
+}
+
+/* ================= 設問描画 ================= */
+function renderPage(){
+  const p = PAGES[page];
+  $("p-label").textContent = p.label + "  " + (page+1) + " / 4";
+  // 月の満ち欠けステッパー
+  $("moons").innerHTML = [0,1,2,3].map(i=>{
+    const done = i < page, cur = i === page;
+    const fill = done ? "#8E7CC3" : cur ? "#C7B6E8" : "none";
+    return `<svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="#8E7CC3" stroke-width="1.8" fill="${fill}"/></svg>`;
+  }).join("");
+  $("q-area").innerHTML = p.qs.map((q,qi)=>`
+    <div class="q">
+      <h2><span class="no">Q${page*4+qi+1}</span>${q.t}</h2>
+      <div class="opts" role="group" aria-label="Q${page*4+qi+1}">
+        ${q.o.map((o,oi)=>`<button type="button" class="opt" data-q="${qi}" data-o="${oi}" onclick="pick(${qi},${oi},this)">${o[0]}</button>`).join("")}
+      </div>
+    </div>`).join("");
+  // 復元
+  answers[page].forEach((oi,qi)=>{
+    if(oi!==null){
+      const b = document.querySelector(`.opt[data-q="${qi}"][data-o="${oi}"]`);
+      if(b) b.classList.add("sel");
+    }
+  });
+  $("hint").textContent = "";
+  $("next-btn").textContent = page === 3 ? "結果を見る" : "次へ";
+}
+function pick(qi, oi, el){
+  answers[page][qi] = oi;
+  document.querySelectorAll(`.opt[data-q="${qi}"]`).forEach(b=>b.classList.remove("sel"));
+  el.classList.add("sel");
+  $("hint").textContent = "";
+}
+function nextPage(){
+  const missing = answers[page].findIndex(a=>a===null);
+  if(missing !== -1){
+    $("hint").textContent = "まだ答えてない質問があるみたい(Q" + (page*4+missing+1) + ")";
+    return;
+  }
+  if(page < 3){ page++; renderPage(); show("v-quiz", page+1); }
+  else{ calcResult(); }
+}
+
+/* ================= 判定 ================= */
+function calcResult(){
+  const score = {W:0,A:0,F:0,N:0,G:0,K:0,S:0,Y:0};
+  let flags = 0;
+  PAGES.forEach((p,pi)=>p.qs.forEach((q,qi)=>{
+    const o = q.o[answers[pi][qi]];
+    score[o[1]] += o[2];
+    if(o[3]) flags++;
+  }));
+  // 同点は安全側(W/N/G/Y)に倒す
+  const a1 = score.W >= score.A ? "W" : "A";
+  const a2 = score.F >  score.N ? "F" : "N";
+  const a3 = score.G >= score.K ? "G" : "K";
+  const st = score.Y >= score.S ? "Y" : "S";
+  resultCode = a1+a2+a3+"-"+st;
+  renderResult(resultCode, flags, score);
+}
+function renderResult(code, flags, score){
+  const r = R[code];
+  $("r-name").textContent = r.n;
+  $("r-code").textContent = code.replace("-","·") + " TYPE";
+  // タイプ別イラスト(img/コード.png があれば表示、なければ仮画像のまま)
+  const slot = $("illust");
+  const defaultSvg = slot.innerHTML;
+  const im = new Image();
+  im.src = "img/" + code + ".png";
+  im.alt = "";
+  im.style.cssText = "width:150px;height:150px;border-radius:50%;object-fit:cover";
+  im.onload = () => { slot.innerHTML = ""; slot.appendChild(im); };
+  im.onerror = () => { slot.innerHTML = defaultSvg; };
+  // 軸パーセンテージバー(16Personalities式)
+  const AXES = [
+    ["W","言葉で安心","A","行動で安心"],
+    ["F","未来を見てる","N","いまを見てる"],
+    ["G","合わせる","K","自分を保つ"],
+    ["Y","揺らぎ期","S","安定期"]
+  ];
+  $("axes").innerHTML = AXES.map(([p1,l1,p2,l2])=>{
+    const total = score[p1]+score[p2];
+    let pct = Math.round(score[p1]/total*100);
+    let win = [l1,pct], lose=[l2,100-pct];
+    if(score[p2] > score[p1]){ win=[l2,100-pct]; lose=[l1,pct]; }
+    return `<div class="axis">
+      <div class="ax-labels"><b>${win[0]} ${win[1]}%</b><span>${lose[0]} ${lose[1]}%</span></div>
+      <div class="bar"><i style="width:${win[1]}%"></i></div>
+    </div>`;
+  }).join("");
+  $("r-body").innerHTML = r.p.map((t,i)=>
+    `<div class="r-sec"><h3>${SEC_TITLES[i]}</h3><p>${t}</p></div>`).join("");
+  resultShare = r.s;
+  // 安全レイヤー
+  const safetyHtml = `
+    <div class="safety">
+      <h3>タイプの前に、ひとつだけ。</h3>
+      <p>診断の答えの中に、「言いたいことを飲み込む」「自分を疑ってしまう」が多めに入っていました。これはタイプの個性というより、ちょっとお疲れのサインかもしれません。</p>
+      <p style="margin-top:8px">年の差そのものより、「我慢が言えないこと」のほうが、関係も自分もすり減らせます。もし思い当たるなら、この結果を信頼できる友達に見せて話してみるのもありです。一人で抱えるには、恋愛はちょっと重すぎるので。</p>
+      ${flags>=5 ? '<p style="margin-top:8px">しんどさが続いてるなら、友達だけじゃなく専門の相談窓口に話せる場所もあります。</p>' : ''}
+    </div>`;
+  $("safety-top").innerHTML = flags>=5 ? safetyHtml : "";
+  $("safety-mid").innerHTML = (flags>=3 && flags<5) ? safetyHtml : "";
+  $("line-btn").href = CONFIG.lineUrl;
+  $("line-hint").innerHTML = "登録したら、合言葉「<b>" + KW[code] + "</b>」を送ってね。あなたのタイプの解説が届きます";
+  $("note-btn").href = CONFIG.noteUrlF;
+  show("v-result","r");
+}
+
+/* ================= シェア ================= */
+function shareX(){
+  const text = resultShare + "\n#" + CONFIG.hashtag + "\n";
+  const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(CONFIG.siteUrl);
+  window.open(url, "_blank", "noopener");
+}
+
+/* ================= 星(夜のページ用) ================= */
+(function(){
+  const s = document.querySelector(".stars");
+  for(let i=0;i<24;i++){
+    const d = document.createElement("i");
+    d.style.left = Math.random()*100+"%";
+    d.style.top = Math.random()*100+"%";
+    d.style.opacity = .3 + Math.random()*.7;
+    s.appendChild(d);
+  }
+})();
+</script>
+</body>
+</html>
