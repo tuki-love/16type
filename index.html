@@ -9,7 +9,7 @@
 <meta property="og:title" content="この関係、大丈夫? ——年上の彼との現在地診断">
 <meta property="og:description" content="年上の彼と付き合うあなたの「今」を16タイプで診断。全16問・2分。">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://YOUR-GITHUB-ID.github.io/REPO-NAME/ogp.png">
+<meta property="og:image" content="https://tuki-love.github.io/16type/ogp.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -205,7 +205,7 @@ h1 .sub{display:block;font-size:.85rem;color:var(--sub);font-weight:500;margin-t
 <script>
 /* ================= 設定(公開前にここだけ差し替え) ================= */
 const CONFIG = {
-  siteUrl: "https://YOUR-GITHUB-ID.github.io/REPO-NAME/", // 公開URL
+  siteUrl: "https://tuki-love.github.io/16type/", // 公開URL
   lineUrl: "https://lin.ee/ZQIfKjb",       // LINE公式アカウント 友だち追加URL
   noteUrlF: "#",      // 女性向けnoteのURL
   noteUrlM: "#",      // 男性向けnoteのURL
@@ -500,6 +500,15 @@ function renderResult(code, flags, score){
   const r = R[code];
   $("r-name").textContent = r.n;
   $("r-code").textContent = code.replace("-","·") + " TYPE";
+  // タイプ別イラスト(img/コード.png があれば表示、なければ仮画像のまま)
+  const slot = $("illust");
+  const defaultSvg = slot.innerHTML;
+  const im = new Image();
+  im.src = "img/" + code + ".png";
+  im.alt = "";
+  im.style.cssText = "width:150px;height:150px;border-radius:50%;object-fit:cover";
+  im.onload = () => { slot.innerHTML = ""; slot.appendChild(im); };
+  im.onerror = () => { slot.innerHTML = defaultSvg; };
   // 軸パーセンテージバー(16Personalities式)
   const AXES = [
     ["W","言葉で安心","A","行動で安心"],
